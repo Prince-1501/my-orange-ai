@@ -38,6 +38,12 @@ export default function ChatInterface() {
     }, 1000);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  };
+
   return (
     <div className="flex flex-col h-[600px] bg-white rounded-lg shadow-lg">
       {/* Language Toggle */}
@@ -95,7 +101,7 @@ export default function ChatInterface() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            onKeyDown={handleKeyDown}
             placeholder={language === 'english' ? 'Ask your question...' : 'अपना प्रश्न पूछें...'}
             className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
           />
