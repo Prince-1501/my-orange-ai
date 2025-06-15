@@ -1,3 +1,7 @@
+'use client';
+
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 export default function DashboardLayout({
@@ -5,6 +9,20 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-600"></div>
+      </div>
+    );
+  }
+
+  if (!session) {
+    redirect('/auth/signin');
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Navigation */}
@@ -15,10 +33,13 @@ export default function DashboardLayout({
               My Orange AI
             </Link>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-600">Welcome, Student</span>
-              <button className="text-gray-600 hover:text-orange-600">
+              <span className="text-gray-600">Welcome, {session.user?.name}</span>
+              <Link
+                href="/api/auth/signout"
+                className="text-gray-600 hover:text-orange-600"
+              >
                 Logout
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,15 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleStartLearning = () => {
+    router.push('/auth/signin');
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
       {/* Hero Section */}
@@ -14,7 +23,10 @@ export default function Home() {
             Ask doubts, get notes & MCQs — in Hindi or English. Perfect for Class 11 & 12 students from Bihar, UP, and Jharkhand.
           </p>
           <div className="flex gap-4">
-            <button className="bg-orange-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-orange-700 transition">
+            <button 
+              onClick={handleStartLearning}
+              className="bg-orange-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-orange-700 transition"
+            >
               Start Learning
             </button>
             <button className="border-2 border-orange-600 text-orange-600 px-8 py-3 rounded-full font-semibold hover:bg-orange-50 transition">
@@ -53,7 +65,10 @@ export default function Home() {
         <div className="bg-orange-600 rounded-2xl p-8 md:p-12 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Ace Your Exams?</h2>
           <p className="text-xl mb-8">Join thousands of students who are already learning smarter with our AI Study Buddy.</p>
-          <button className="bg-white text-orange-600 px-8 py-3 rounded-full font-semibold hover:bg-orange-50 transition">
+          <button 
+            onClick={handleStartLearning}
+            className="bg-white text-orange-600 px-8 py-3 rounded-full font-semibold hover:bg-orange-50 transition"
+          >
             Get Started Now
           </button>
         </div>

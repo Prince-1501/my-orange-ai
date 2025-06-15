@@ -11,20 +11,16 @@ const handler = NextAuth({
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-  callbacks: {
-    async session({ session, user }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-        },
-      };
-    },
-  },
   pages: {
     signIn: '/auth/signin',
-    error: '/auth/error',
+  },
+  callbacks: {
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
   },
 });
 
